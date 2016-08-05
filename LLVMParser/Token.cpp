@@ -11,8 +11,9 @@
 namespace llvmpascal
 {
     TokenLocation::TokenLocation(const std::string& fileName, int line, int column)
-    :fileName_(fileName), line_(line), column_(column)
+    : fileName_(fileName), line_(line), column_(column)
     {}
+    
     TokenLocation::TokenLocation() : fileName_(""), line_(1), column_(0)
     {}
     
@@ -22,12 +23,20 @@ namespace llvmpascal
     }
     
 
-    Token::Token() : type_(TokenType::UNKNOWN), value_(TokenValue::UNRESERVED), location_(std::string(""), 0, 0), name_(""),
-    symbolPrecedence_(-1)
+    Token::Token() : type_(TokenType::UNKNOWN), value_(TokenValue::UNRESERVED),
+    location_(std::string(""), 0, 0), name_(""), symbolPrecedence_(-1)
     {}
     
-    Token::Token(TokenType type, TokenValue value, const TokenLocation& location, std::string name, int symbolPrecedence)
-    : type_(type), value_(value), location_(location), name_(name), symbolPrecedence_(symbolPrecedence)
+    Token::Token(TokenType type, TokenValue value, const TokenLocation& location,
+                 std::string name, int symbolPrecedence)
+    : type_(type), value_(value), location_(location), name_(name),
+    symbolPrecedence_(symbolPrecedence)
+    {}
+    
+    Token::Token(TokenType type, TokenValue value, const TokenLocation& location,
+                 const std::string& strValue, std::string name)
+    : type_(type), value_(value), location_(location),
+    name_(name), symbolPrecedence_(-1), strValue_(strValue)
     {}
     
     Token::Token(TokenType type, TokenValue value, const TokenLocation& location,
@@ -46,7 +55,7 @@ namespace llvmpascal
     {
         std::string buffer;
         switch (type_) {
-            case TokenType::INTERGER:
+            case TokenType::INTEGER:
                 buffer = "integer";
                 break;
             case TokenType::REAL:
@@ -92,6 +101,6 @@ namespace llvmpascal
     
     void Token::dump(std::ostream& out) const
     {
-        out<<location_.toString()<<"\t"<<tokenTypeDescription()<<"\t\t"<<getSymbolPrecedence()<<std::endl;
+        out<<location_.toString()<<"\t"<<toString()<<"\t"<<tokenTypeDescription()<<"\t\t"<<getSymbolPrecedence()<<std::endl;
     }
 }

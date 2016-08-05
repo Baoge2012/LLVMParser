@@ -19,7 +19,7 @@ namespace llvmpascal
 {
     enum class TokenType//词法单元类型
     {
-        INTERGER,
+        INTEGER,
         REAL,
         BOOLEAN,
         CHAR,

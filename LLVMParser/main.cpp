@@ -7,9 +7,16 @@
 //
 
 #include <iostream>
+#include "scanner.hpp"
+using namespace llvmpascal;
 
 int main(int argc, const char * argv[]) {
     // insert code here...
-    std::cout << "Hello, World!\n";
+    Scanner scanner("/Users/mingbao/JustForFun/LLVMParser/LLVMParser/Scanner_test.txt");
+    while (scanner.getToken().getTokenType() != TokenType::END_OF_FILE)
+    {
+        scanner.getToken().dump();
+        scanner.getNextToken();
+    }
     return 0;
 }
